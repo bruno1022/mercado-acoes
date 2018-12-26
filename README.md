@@ -25,7 +25,9 @@ docker run -d --hostname rabbitmq --name rabbitmq-management -p 15672:15672 -p 5
 ### 2. Configurar e-mail de Origem
 ```
 Alterar as constantes dentro do arquivo de configuração: /src/main/java/com/javaee/bruno/mercadoacoes/emailsender/EmailSender.java 
-**Exemplo: **
+```
+**Exemplo:**
+```
 final String fromEmail = "example@gmail.com";
 final String password = "example";
 ```
@@ -41,8 +43,10 @@ Executar o projeto no Eclipse como um Springboot App
 ### 5. API's
 #### 5.1. Empresas
 ##### 5.1.1. Criar empresa
+
+**POST**
 ```
-POST http://localhost:8080/api/v1/empresas
+http://localhost:8080/api/v1/empresas
 ```
 
 ```
@@ -63,8 +67,9 @@ Resposta:
 ```
 
 ##### 5.1.2. Listar empresas
+**GET**
 ```
-GET http://localhost:8080/api/v1/empresas
+http://localhost:8080/api/v1/empresas
 ```
 
 Resposta:
@@ -81,8 +86,9 @@ Resposta:
 
 #### 5.2. Investidores
 ##### 5.2.1. Criar investidor
+**POST**
 ```
-POST http://localhost:8080/api/v1/investidores/
+http://localhost:8080/api/v1/investidores/
 ```
 ```
 {
@@ -102,11 +108,12 @@ Resposta:
 ```
 
 ##### 5.2.2. Listar investidores
+**GET**
 ```
-GET http://localhost:8080/api/v1/investidores/
+http://localhost:8080/api/v1/investidores/
 ```
 
-Resposta:
+**Resposta:**
 ```
 [
     {
@@ -120,8 +127,9 @@ Resposta:
 
 #### 5.3. Emitir Ações (Empresa)
 ##### 5.3.1. Emitir ação para uma empresa cadastrada
+**POST**
 ```
-POST http://localhost:8080/api/v1/acaoes/emit/{empresaId}
+http://localhost:8080/api/v1/acaoes/emit/{empresaId}
 ```
 ```
 {
@@ -131,7 +139,7 @@ POST http://localhost:8080/api/v1/acaoes/emit/{empresaId}
 }
 ```
 
-Resposta:
+**Resposta:**
 ```
 {
     "id": "X12345678-X123-12A4-123C-A012345678912",
@@ -144,11 +152,12 @@ Resposta:
 ```
 
 ##### 5.3.2. Exibir ações de uma empresa
+**GET**
 ```
-GET http://localhost:8080/api/v1/acoes/emit/{empresaId}
+http://localhost:8080/api/v1/acoes/emit/{empresaId}
 ```
 
-Resposta:
+**Resposta:**
 ```
 [
     {
@@ -164,11 +173,14 @@ Resposta:
 
 #### 5.4. Comprar ações (investidor)
 ##### 5.4.1. Comprar ações
+
+**POST**
 ```
-POST http://localhost:8080/api/v1/acoes/comprar/
-POST http://localhost:8080/api/v1/acoes/comprar/{acaoId}/
-POST http://localhost:8080/api/v1/acoes/comprar/{acaoId}/{investidorId}
+http://localhost:8080/api/v1/acoes/comprar/
+http://localhost:8080/api/v1/acoes/comprar/{acaoId}/
+http://localhost:8080/api/v1/acoes/comprar/{acaoId}/{investidorId}
 ```
+**Resposta:**
 ```
 {
     "acaoId": {acaoId},
@@ -178,7 +190,7 @@ POST http://localhost:8080/api/v1/acoes/comprar/{acaoId}/{investidorId}
 }
 ```
 
-##### Resposta:
+**Resposta:**
 ```
 {
     "id": "X12345678-X123-12A4-123C-A012345678912"
@@ -186,11 +198,13 @@ POST http://localhost:8080/api/v1/acoes/comprar/{acaoId}/{investidorId}
 ```
 
 ##### 5.4.2. Exibir demandas (compras recebidas) de ações
+
+**GET**
 ```
-GET http://localhost:8080/api/v1/acoes/comprar/
+http://localhost:8080/api/v1/acoes/comprar/
 ```
 
-Resposta:
+**Resposta:**
 ```
 [
     {
@@ -219,11 +233,14 @@ Resposta:
 
 #### 5.5. Vender ações (investidor)
 ##### 5.5.1. Vender ações
+
+**POST**
 ```
-POST http://localhost:8080/api/v1/acoes/vender/
-POST http://localhost:8080/api/v1/acoes/vender/{acaoId}/
-POST http://localhost:8080/api/v1/acoes/vender/{acaoId}/{investidorId}
+http://localhost:8080/api/v1/acoes/vender/
+http://localhost:8080/api/v1/acoes/vender/{acaoId}/
+http://localhost:8080/api/v1/acoes/vender/{acaoId}/{investidorId}
 ```
+**Resposta:**
 ```
 {
     "acaoId": {acaoId},
@@ -234,10 +251,12 @@ POST http://localhost:8080/api/v1/acoes/vender/{acaoId}/{investidorId}
 ```
 
 ##### 5.5.2. Exibir ofertas (vendas) de ações
-```
-GET http://localhost:8080/api/v1/acoes/vender/
-```
 
+**GET**
+```
+http://localhost:8080/api/v1/acoes/vender/
+```
+**Resposta**
 ```
 [
     {
@@ -262,20 +281,24 @@ GET http://localhost:8080/api/v1/acoes/vender/
 
 #### 5.6. Texto de e-mails (exemplos)
 ##### 5.6.1. Venda realizada com sucesso
-```
-**Assunto:**
-Notificação de venda ação X12345678-X123-12A4-123C-A012345678912
 
+**Assunto:**
+```
+Notificação de venda ação X12345678-X123-12A4-123C-A012345678912
+```
 **Corpo do e-mail:**
+```
 5000 ações foram vendidas com sucesso no valor de 99.99 (preço unitário).
 ```
 
 ##### 5.6.2. Compra realizada com sucesso
-```
-**Assunto:**
-Notificação de compra ação X12345678-X123-12A4-123C-A012345678912
 
+**Assunto:**
+```
+Notificação de compra ação X12345678-X123-12A4-123C-A012345678912
+```
 **Corpo do e-mail:**
+```
 1500 ações foram compradas com sucesso no valor de 99.99 (preço unitário).
 ```
 
