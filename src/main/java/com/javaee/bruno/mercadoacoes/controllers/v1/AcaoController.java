@@ -56,20 +56,20 @@ public class AcaoController {
 
 	/* Emissão de Ações - I */	
 	// GET
-	@GetMapping({ "/emit/{companyId}" })
+	@GetMapping({ "/emit/{empresaId}" })
 	@ResponseStatus(HttpStatus.OK)
-	public Set<AcaoRest> getAllCompany(@PathVariable String companyId) {
+	public Set<AcaoRest> getAllEmpresa(@PathVariable String empresaId) {
 		Set<AcaoRest> stockRest = new HashSet<>();
-		empresaService.getAllStocks(companyId).forEach((Acao stock) -> {
+		empresaService.getAllStocks(empresaId).forEach((Acao stock) -> {
 			stockRest.add(new AcaoRest(stock));
 		});
 		return stockRest;
 	}
 
-	@GetMapping({ "/emit/{companyId}/{acaoId}" })
+	@GetMapping({ "/emit/{empresaId}/{acaoId}" })
 	@ResponseStatus(HttpStatus.OK)
-	public AcaoRest getById(@PathVariable String companyId, @PathVariable String stockId) {
-		return new AcaoRest (empresaService.getStockById(companyId, stockId));
+	public AcaoRest getById(@PathVariable String empresaId, @PathVariable String stockId) {
+		return new AcaoRest (empresaService.getStockById(empresaId, stockId));
 	}
 
 	// POST
@@ -99,20 +99,20 @@ public class AcaoController {
 	// POST
 	@PostMapping({ "/comprar" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId buy(@RequestBody AcaoMercado acaoMercado) {
+	public MessageId comprar(@RequestBody AcaoMercado acaoMercado) {
 		return acaoService.sendMessage("demanda", acaoMercado);
 	}
 
-	@PostMapping({ "/buy/{acaoId}" })
+	@PostMapping({ "/comprar/{acaoId}" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId buyStock(@PathVariable String acaoId, @RequestBody AcaoMercado acaoMercado) {
+	public MessageId comprar(@PathVariable String acaoId, @RequestBody AcaoMercado acaoMercado) {
 		acaoMercado.setAcaoId(acaoId);
 		return acaoService.sendMessage("demanda", acaoMercado);
 	}
 
-	@PostMapping({ "/buy/{acaoId}/{investidorId}" })
+	@PostMapping({ "/bcompraruy/{acaoId}/{investidorId}" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId buyStockInvestor(@PathVariable String acaoId, @PathVariable String investidorId, @RequestBody AcaoMercado acaoMercado) {
+	public MessageId comprarStockInvestor(@PathVariable String acaoId, @PathVariable String investidorId, @RequestBody AcaoMercado acaoMercado) {
 		acaoMercado.setAcaoId(acaoId);
 		acaoMercado.setInvestidorId(investidorId);
 		return acaoService.sendMessage("demanda", acaoMercado);
@@ -138,20 +138,20 @@ public class AcaoController {
 	// POST
 	@PostMapping({ "/vender" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId sell(@RequestBody AcaoMercado acaoMercado) {
+	public MessageId vender(@RequestBody AcaoMercado acaoMercado) {
 		return acaoService.sendMessage("oferta", acaoMercado);
 	}
 
 	@PostMapping({ "/vender/{acaoId}" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId sellStock(@PathVariable String acaoId, @RequestBody AcaoMercado acaoMercado) {
+	public MessageId venderAcao(@PathVariable String acaoId, @RequestBody AcaoMercado acaoMercado) {
 		acaoMercado.setAcaoId(acaoId);
 		return acaoService.sendMessage("oferta", acaoMercado);
 	}
 
-	@PostMapping({ "/sell/{acaoId}/{investidorId}" })
+	@PostMapping({ "/vender/{acaoId}/{investidorId}" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageId sellStockInvestor(@PathVariable String acaoId, @PathVariable String investidorId, @RequestBody AcaoMercado acaoMercado) {
+	public MessageId vender(@PathVariable String acaoId, @PathVariable String investidorId, @RequestBody AcaoMercado acaoMercado) {
 		acaoMercado.setAcaoId(acaoId);
 		acaoMercado.setInvestidorId(investidorId);
 		return acaoService.sendMessage("oferta", acaoMercado);
